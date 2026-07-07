@@ -209,12 +209,12 @@ export default function Home() {
 
           <div className="max-w-4xl mx-auto">
             <div 
-              className="bg-white border-2 border-slate-200 shadow-md"
+              className="bg-white border-2 border-slate-200 shadow-md h-[750px] md:h-[950px]"
               id="book-call"
             >
               <InlineWidget 
                 url="https://calendly.com/silverlinkservice/30min"
-                styles={{ height: '1000px', minWidth: '320px', width: '100%' }}
+                styles={{ height: '100%', minWidth: '320px', width: '100%' }}
               />
             </div>
           </div>
