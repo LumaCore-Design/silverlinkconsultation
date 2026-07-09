@@ -25,7 +25,7 @@ export default function Navbar() {
           <Link href="/#pricing" className="hover:text-white transition-colors whitespace-nowrap">Pricing</Link>
           <a href="https://starlink.com/residential?referral=RC-1561184-52230-53" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors whitespace-nowrap">Order Starlink</a>
           <a href="#book-call" className="px-4 xl:px-6 py-3 bg-white text-slate-950 hover:bg-slate-200 transition-colors font-bold uppercase tracking-widest text-xs whitespace-nowrap">Book Call</a>
-          <a href="https://silverlinkservices.com" className="px-4 xl:px-6 py-3 bg-primary-600 text-white hover:bg-primary-500 transition-colors font-bold uppercase tracking-widest text-xs whitespace-nowrap">Need Installation?</a>
+          <a href="https://silverlinkservices.co" className="px-4 xl:px-6 py-3 bg-primary-600 text-white hover:bg-primary-500 transition-colors font-bold uppercase tracking-widest text-xs whitespace-nowrap">Need Installation?</a>
         </div>
 
         {/* Mobile Nav Toggle & Call Button */}
@@ -53,7 +53,7 @@ export default function Navbar() {
           <Link href="/#about" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-white transition-colors block border-b border-slate-800 pb-4">About</Link>
           <Link href="/#pricing" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-white transition-colors block border-b border-slate-800 pb-4">Pricing</Link>
           <a href="https://starlink.com/residential?referral=RC-1561184-52230-53" target="_blank" rel="noopener noreferrer" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-white transition-colors block border-b border-slate-800 pb-4">Order Starlink</a>
-          <a href="https://silverlinkservices.com" onClick={() => setIsMobileMenuOpen(false)} className="text-primary-500 hover:text-primary-400 transition-colors block border-b border-slate-800 pb-4">Need Installation?</a>
+          <a href="https://silverlinkservices.co" onClick={() => setIsMobileMenuOpen(false)} className="text-primary-500 hover:text-primary-400 transition-colors block border-b border-slate-800 pb-4">Need Installation?</a>
         </div>
       </div>
     </nav>

@@ -34,41 +34,7 @@ export default function Footer() {
 
 
 
-          <div className="md:col-span-3 lg:col-span-3">
-            <h4 className="text-slate-500 font-bold mb-6 text-xs uppercase tracking-widest">Contact Us</h4>
-            <ul className="space-y-6">
-              <li className="flex items-start gap-4">
-                <div className="w-10 h-10 border-2 border-slate-800 bg-slate-900 flex items-center justify-center shrink-0">
-                  <MapPin className="w-5 h-5 text-primary-500" />
-                </div>
-                <div className="flex items-center h-10">
-                  <p className="text-slate-400 text-sm font-medium">Winn Parish, Louisiana</p>
-                </div>
-              </li>
-              <li className="flex items-start gap-4">
-                <div className="w-10 h-10 border-2 border-slate-800 bg-slate-900 flex items-center justify-center shrink-0">
-                  <Phone className="w-5 h-5 text-primary-500" />
-                </div>
-                <div>
-                  <p className="font-medium text-slate-200 mb-1">Phone</p>
-                  <a href="tel:3183328501" className="text-slate-400 hover:text-primary-400 transition-colors text-sm font-medium">
-                    318-332-8501
-                  </a>
-                </div>
-              </li>
-              <li className="flex items-start gap-4">
-                <div className="w-10 h-10 border-2 border-slate-800 bg-slate-900 flex items-center justify-center shrink-0">
-                  <Mail className="w-5 h-5 text-primary-500" />
-                </div>
-                <div>
-                  <p className="font-medium text-slate-200 mb-1">Email</p>
-                  <a href="mailto:silverlinkservice@gmail.com" className="text-slate-400 hover:text-primary-400 transition-colors text-sm font-medium break-all">
-                    silverlinkservice@gmail.com
-                  </a>
-                </div>
-              </li>
-            </ul>
-          </div>
+
         </div>
         
         <div className="text-center text-slate-500 text-xs flex flex-col gap-6">
