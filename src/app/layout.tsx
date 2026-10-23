@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { SiteAnalytics } from "@/components/site-analytics";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -8,6 +9,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://consulting.silverlinkservices.co"),
   title: "Silverlink Consultation | Expert Starlink Troubleshooting",
   description: "Get direct help with your Starlink account, hardware, and installation from an experienced professional. Book a paid consulting call today.",
   icons: {
@@ -32,6 +34,7 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <body className={`${inter.variable} min-h-screen flex flex-col font-sans bg-white text-slate-900`}>
         {children}
+        <SiteAnalytics />
       </body>
     </html>
   );

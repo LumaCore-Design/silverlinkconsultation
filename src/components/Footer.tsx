@@ -50,6 +50,9 @@ export default function Footer() {
               </p>
             </div>
             <div className="flex items-center gap-6 text-sm">
+              <Link href="/privacy" className="hover:text-primary-400 transition-colors uppercase tracking-widest text-xs font-bold text-slate-400">
+                Privacy
+              </Link>
               <a href="https://starlink.com/residential?referral=RC-1561184-52230-53" target="_blank" rel="noopener noreferrer" className="hover:text-primary-400 transition-colors uppercase tracking-widest text-xs font-bold text-slate-400">
                 Order Starlink
               </a>
