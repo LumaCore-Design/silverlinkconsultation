@@ -7,9 +7,15 @@ import { Satellite, Phone, Wifi, ShieldCheck, Tv, Zap, MapPin, ExternalLink, Che
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { InlineWidget } from "react-calendly";
+import { InlineWidget, useCalendlyEventListener } from "react-calendly";
+import { sendGAEvent } from "@next/third-parties/google";
 
 export default function Home() {
+  // The booking widget is a Calendly iframe, not a <form>, so a scheduled call is reported as the lead.
+  useCalendlyEventListener({
+    onEventScheduled: () => sendGAEvent("event", "generate_lead", { form_id: "calendly_booking", page_path: window.location.pathname }),
+  });
+
   const fadeIn = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
