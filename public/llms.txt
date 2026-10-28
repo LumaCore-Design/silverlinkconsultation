@@ -1,0 +1,11 @@
+# Silverlink Consultation
+
+> Independent 1-on-1 Starlink consulting and troubleshooting by phone: book online, pay a flat $25 fee, and an experienced professional calls you at your scheduled time.
+
+Silverlink Consultation offers direct help with Starlink accounts, hardware diagnostics and installation issues from an experienced professional, as an alternative to long support wait times. Booking takes three steps: choose a time with the online booking system, pay a flat $25 fee upfront to confirm, and the expert calls you directly at the scheduled time. Calls are booked on the website (https://consulting.silverlinkservices.co/#book-call). The site is run by Silverlink Services, a Starlink installation company based in Winn Parish, Louisiana (https://silverlinkservices.co), which also handles in-person installations. Silverlink Consultation is independent and is not associated with or endorsed by Starlink or SpaceX.
+
+## Pages
+
+- [Home](https://consulting.silverlinkservices.co/): How consulting calls work, pricing and online booking
+- [Privacy Policy](https://consulting.silverlinkservices.co/privacy)
+- [Silverlink Services (installation)](https://silverlinkservices.co/): Professional Starlink installation in North and Central Louisiana
