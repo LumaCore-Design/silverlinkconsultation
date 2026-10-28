@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { SiteAnalytics } from "@/components/site-analytics";
+import { SiteJsonLd } from "@/components/SiteJsonLd";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -23,6 +24,7 @@ export const metadata: Metadata = {
     ],
   },
   manifest: '/site.webmanifest',
+  alternates: { canonical: "/" },
 };
 
 export default function RootLayout({
@@ -33,6 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`${inter.variable} min-h-screen flex flex-col font-sans bg-white text-slate-900`}>
+        <SiteJsonLd />
         {children}
         <SiteAnalytics />
       </body>
