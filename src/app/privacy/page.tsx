@@ -38,6 +38,10 @@ const sections = [
     ),
   },
   {
+    title: "Click and scroll heatmaps",
+    body: <>We also use a heatmap tool from LumaCore Design, the company that built and maintains this website. It records which pages are viewed, where on a page visitors click or tap, and how far they scroll, so we can see which parts of the site are useful. It does not use cookies, does not record anything you type, and does not tell us who you are.</>,
+  },
+  {
     title: "We don't sell your information",
     body: <>We do not sell or rent your personal information to anyone.</>,
   },
