@@ -38,8 +38,8 @@ const sections = [
     ),
   },
   {
-    title: "Click and scroll heatmaps",
-    body: <>We also use a heatmap tool from LumaCore Design, the company that built and maintains this website. It records which pages are viewed, where on a page visitors click or tap, and how far they scroll, so we can see which parts of the site are useful. It does not use cookies, does not record anything you type, and does not tell us who you are.</>,
+    title: "Heatmaps and session recordings",
+    body: <>We also use an analytics service from LumaCore Design, the company that built and maintains this website, which runs on app.lumacoredesign.com. It records which pages are viewed, where on a page visitors click or tap, and how far they scroll, and it can record page activity during a visit (a session recording) so we can see which parts of the site are useful and where people get stuck. Everything typed into forms is masked and never recorded. Recordings are kept for 60 days. It does not use cookies; it keeps a random visit ID in your browser&apos;s session storage, which is cleared when you close the tab. It does not tell us who you are, and we do not sell or share this information.</>,
   },
   {
     title: "We don't sell your information",
@@ -56,7 +56,7 @@ export default function PrivacyPage() {
         <section className="bg-white py-24 px-6 border-b-4 border-primary-500">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-6xl font-black text-slate-900 mb-6 uppercase tracking-tight leading-[0.9]">Privacy Policy</h1>
-            <p className="text-sm font-bold text-slate-500 uppercase tracking-widest">Last updated October 2026</p>
+            <p className="text-sm font-bold text-slate-500 uppercase tracking-widest">Last updated November 2026</p>
           </div>
         </section>
 
