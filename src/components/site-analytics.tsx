@@ -1,18 +1,27 @@
 "use client";
 
 import { GoogleAnalytics, sendGAEvent } from "@next/third-parties/google";
-import { useEffect } from "react";
+import { useEffect, useSyncExternalStore } from "react";
+import { LEAD_FAILED_EVENT, LEAD_SENT_EVENT, type LeadEventDetail } from "@/lib/lead-events";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 /**
  * LumaCore website heatmap: which pages are viewed, where visitors click or tap and how far they
- * scroll (no cookies, nothing typed). Loads once the page is idle, only on the live site. Inside
- * LumaCore's dashboard heatmap view (?lc_heatmap=1 in a frame) the same script draws the heatmap
- * instead, and Google Analytics stays off there so staff views aren't counted as visits.
+ * scroll, plus session recordings with everything typed masked (no cookies). Loads once the page
+ * is idle, only on the live site. Inside LumaCore's dashboard heatmap view (?lc_heatmap=1 in a
+ * frame) the same script draws the heatmap instead, and Google Analytics stays off there so staff
+ * views aren't counted as visits.
  */
 const HEATMAP_SITE = "consulting-silverlinkservices-co";
 const HEATMAP_SCRIPT = "https://app.lumacoredesign.com/heatmap/t.js";
+
+/** The live domain only: never localhost, Vercel previews or LumaCore staging. */
+function isLiveHost() {
+  const host = window.location.hostname;
+  return !(host === "localhost" || host === "127.0.0.1" || host.endsWith(".vercel.app") || host.endsWith(".lumacore.app"));
+}
+const noSubscribe = () => () => {};
 
 function inHeatmapView() {
   try {
@@ -26,9 +35,7 @@ if (typeof window !== "undefined" && GA_ID && inHeatmapView()) (window as unknow
 
 function useHeatmap() {
   useEffect(() => {
-    if (!GA_ID) return;
-    const host = window.location.hostname;
-    if (host === "localhost" || host.endsWith(".vercel.app") || host.endsWith(".lumacore.app")) return;
+    if (!GA_ID || !isLiveHost()) return;
     if (document.querySelector(`script[src="${HEATMAP_SCRIPT}"]`)) return;
     const add = () => {
       const script = document.createElement("script");
@@ -45,15 +52,17 @@ function useHeatmap() {
 
 /**
  * Google Analytics 4 plus the actions that matter for a small business, as GA events:
- * click_to_call (tel: links), click_email (mailto:), get_directions (map links) and
- * generate_lead (a contact or quote form submitted). GA's enhanced measurement adds page views,
- * scrolls, outbound clicks, site search, video and file downloads on its own.
- * Renders nothing without NEXT_PUBLIC_GA_ID (local dev and previews).
+ * click_to_call (tel: links), click_email (mailto:), get_directions (map links),
+ * generate_lead (a call booked in the Calendly widget, reported through src/lib/lead-events.ts
+ * once Calendly confirms it) and form_submit_failed (unused here; there's no site form). GA's
+ * enhanced measurement adds page views, scrolls, outbound clicks, site search, video and file
+ * downloads on its own. Renders nothing without NEXT_PUBLIC_GA_ID or off the live domain.
  */
 export function SiteAnalytics() {
+  const live = useSyncExternalStore(noSubscribe, isLiveHost, () => false);
   useHeatmap();
   useEffect(() => {
-    if (!GA_ID) return;
+    if (!GA_ID || !live) return;
     const onClick = (event: MouseEvent) => {
       const link = (event.target as Element | null)?.closest?.("a[href]") as HTMLAnchorElement | null;
       if (!link) return;
@@ -63,20 +72,22 @@ export function SiteAnalytics() {
       else if (href.startsWith("mailto:")) sendGAEvent("event", "click_email", params);
       else if (/google\.[a-z.]+\/maps|maps\.google\.|goo\.gl\/maps|maps\.app\.goo\.gl|maps\.apple\.com/i.test(href)) sendGAEvent("event", "get_directions", params);
     };
-    const onSubmit = (event: SubmitEvent) => {
-      const form = event.target as HTMLFormElement | null;
-      if (!form || form.getAttribute("role") === "search" || form.dataset.analytics === "off") return;
-      // A lead form asks for a way to reach the person; search and newsletter-only forms don't count.
-      const asksForContact = form.querySelector('input[type="email"], input[type="tel"], input[name*="phone" i], input[name*="email" i]');
-      if (!asksForContact) return;
-      sendGAEvent("event", "generate_lead", { form_id: form.id || form.getAttribute("name") || "form", page_path: window.location.pathname });
+    const onLead = (event: Event) => {
+      const detail = (event as CustomEvent<LeadEventDetail>).detail;
+      sendGAEvent("event", "generate_lead", { form_id: detail.formId, page_path: window.location.pathname });
+    };
+    const onLeadFailed = (event: Event) => {
+      const detail = (event as CustomEvent<LeadEventDetail>).detail;
+      sendGAEvent("event", "form_submit_failed", { form_id: detail.formId, page_path: window.location.pathname, error_type: detail.reason ?? "unknown" });
     };
     document.addEventListener("click", onClick, { capture: true });
-    document.addEventListener("submit", onSubmit, { capture: true });
+    window.addEventListener(LEAD_SENT_EVENT, onLead);
+    window.addEventListener(LEAD_FAILED_EVENT, onLeadFailed);
     return () => {
       document.removeEventListener("click", onClick, { capture: true });
-      document.removeEventListener("submit", onSubmit, { capture: true });
+      window.removeEventListener(LEAD_SENT_EVENT, onLead);
+      window.removeEventListener(LEAD_FAILED_EVENT, onLeadFailed);
     };
-  }, []);
-  return GA_ID ? <GoogleAnalytics gaId={GA_ID} /> : null;
+  }, [live]);
+  return GA_ID && live ? <GoogleAnalytics gaId={GA_ID} /> : null;
 }
